@@ -10,6 +10,7 @@ def highest_affinity(site_list, user_list, time_list):
     # Returned string pair should be ordered by dictionary order
     # I.e., if the highest affinity pair is "foo" and "bar"
     # return ("bar", "foo"). 
+    return("bar", "foo")
 
     # First generate the list of sites that each user visited.
     user_site_map = {}
