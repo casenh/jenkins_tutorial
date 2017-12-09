@@ -1,0 +1,44 @@
+This file describes line-by-link the Jenkins build script that was run.
+
+1: #!/bin/sh
+
+This line informs the shell interpreter what program to execute the file with.
+
+
+2: cd /Users/christinejulien/APT/JenkinsTutorial/affinityJenkins
+
+This changes the currently executing Jenkins build process to the repository's
+directory.
+
+
+3: PYTHONPATH=''
+
+This resets the Python path -- which is used to look for modules for import
+statements. We want to reset it so we control where the imports come from.
+
+
+4: /usr/local/bin/nosetests --with-xunit --all-modules --traverse-namespace --with-coverage --cover-package=affinityJenkins --cover-inclusive &> testoutput
+
+This runs the tests cases in the module with nosetests. It specifies to enable
+to XUnit plugin to write with XML format (--with-xunit), to enable to
+AllModules plugin to run tests from all found python modules (--all-modules),
+to traverse through all entries of a namespace package (--traverse-namespace),
+to enable the coverage module to record code coverage (--with-coverage), to
+restrict code coverage output to our module (--cover-package=affinityJenkins),
+to include all python files in the coverage report (--cover-inclusive), and to
+write the results to testoutput (&> testoutput).
+
+
+5: python -m coverage xml --include=affinityJenkins
+
+This command generates an XML report from coverage results. It executes the
+coverage module using python. It only considers files within our repositories
+path (--include=affinityJenkins).
+
+
+6: /usr/local/bin/pylint -f parseable -d I0011,R0801 affinityJenkins | tee pylint.out
+
+This runs pylint on our code to check for code formatting. We specify for the
+parseable output format (-f parseable), to disable reports of disabled messages
+and duplicate code (-d I0011,R0801), run on our module (affinityJenkins), and
+to save the results in pylint.out (| tee pylint.out)
